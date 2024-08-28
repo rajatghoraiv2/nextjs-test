@@ -19,4 +19,9 @@ export const blogs: Blog[] = [
     title: "Blog 3",
     desc: "blog 3 content",
   },
+  {
+    id: 4,
+    title: "Blog 4",
+    desc: "blog 4 content",
+  },
 ];

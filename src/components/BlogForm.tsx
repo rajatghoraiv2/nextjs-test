@@ -2,53 +2,46 @@
 import React from "react";
 import { useState } from "react";
 
+export default function BlogForm() {
 
+  const [formData, setFormData] = useState<{ title: string, desc: string }>({ title: '', desc: '' });
 
-function BlogForm() {
-
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
   const addBlog = async () => {
     const response = await fetch('/api/data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title, desc }),
+      body: JSON.stringify(formData),
     });
 
-    setTitle("");
-    setDesc("");
+    setFormData({ title: '', desc: '' })
 
-    // client navigation to server side page doesnot refresh
-    // router.push('/') 
     window.location.href = '/'
   };
   return (
-    <div>
+    <div className="flex flex-col gap-4 w-80 m-auto">
       <input
+        className="form-control"
         type="text"
         name="title"
-        placeholder="title"
-        value={title}
+        placeholder="Enter Blog Title"
+        value={formData.title}
         onChange={(e) => {
-          setTitle(e.target.value);
+          setFormData({...formData, title: e.target.value})
         }}
       />
       <input
+        className="form-control"
         type="text"
         name="desc"
-        placeholder="desc"
-        value={desc}
+        placeholder="Enter Blog Content"
+        value={formData.desc}
         onChange={(e) => {
-          setDesc(e.target.value);
+          setFormData({...formData, desc: e.target.value})
         }}
       />
-      <button onClick={addBlog}>Submit</button>
+      <button className="btn" onClick={addBlog}>Add Blog</button>
     </div>
-
-    
   );
 }
-
-export default BlogForm;
